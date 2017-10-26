@@ -20,7 +20,7 @@ Animation::~Animation()
 }
 
 // Method for update the image sprite.
-void Animation::Update(int row, float deltaTime, bool faceRight) {
+void Animation::Update(int row, float deltaTime) {
 	currentImage.y = row;
 	totalTime += deltaTime;
 
@@ -35,12 +35,4 @@ void Animation::Update(int row, float deltaTime, bool faceRight) {
 	// Set image point.
 	uvRect.left = currentImage.x * uvRect.width;
 	uvRect.top = currentImage.y * uvRect.height;
-	if (faceRight) {
-		uvRect.left = currentImage.x * uvRect.width;
-		uvRect.width = abs(uvRect.width);
-	}
-	else {
-		uvRect.left = (currentImage.x + 1) * abs(uvRect.width);
-		uvRect.width = -abs(uvRect.width);
-	}
 }

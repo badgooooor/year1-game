@@ -80,6 +80,7 @@
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="hud.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpellBullet.cpp" />
@@ -87,11 +88,14 @@
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Collision.h" />
+    <ClInclude Include="hud.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpellBullet.h" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\iNVADER\Desktop\Sprite\player_1.png" />
+    <Image Include="Sprite\dungeon-map.png" />
+    <Image Include="Sprite\player_1.png" />
+    <Image Include="Sprite\player_2.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

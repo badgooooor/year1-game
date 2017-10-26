@@ -13,6 +13,9 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Sprite">
+      <UniqueIdentifier>{57597a28-8106-47bb-bbf5-d4a3365ceddd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -30,6 +33,9 @@
     <ClCompile Include="Animation.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="hud.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -44,10 +50,19 @@
     <ClInclude Include="Animation.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="hud.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="C:\Users\iNVADER\Desktop\Sprite\player_1.png">
-      <Filter>Resource Files</Filter>
+    <Image Include="Sprite\player_1.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\dungeon-map.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\player_2.png">
+      <Filter>Source Files\Sprite</Filter>
     </Image>
   </ItemGroup>
 </Project>

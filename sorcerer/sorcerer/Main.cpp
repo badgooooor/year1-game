@@ -2,21 +2,48 @@
 #include <iostream>
 #include "Player.h"
 #include "SpellBullet.h"
+#include "hud.h"
+
+#define WINDOW_WIDTH 800
+#define WINDOW_HEIGHT 800
+
 int main()
 {
-	// Player 1 & Player 2.
-	Player player_1(0.3f,200.0f,200.0f);
-	player_1.SetInput(1);
+	// Window.
+	sf::RenderWindow window(sf::VideoMode(WINDOW_HEIGHT, WINDOW_WIDTH), "Idiot sorcerer.", sf::Style::Default);
+	Hud game_hud;
 
-	Player player_2(0.3f, 200.0f, 200.0f);
-	player_2.SetInput(2);
+	// Clock.
+	float deltaTime = 0.0f;
+	sf::Clock clock;
+
+	// Load the sprite.
+	sf::Texture player_1_texture;
+	player_1_texture.loadFromFile("Sprite\\player_1.png");
+	sf::Texture player_2_texture;
+	player_2_texture.loadFromFile("Sprite\\player_2.png");
+
+	// World.
+	sf::Texture dungeon_map;
+	dungeon_map.loadFromFile("Sprite\\dungeon-map.png");
+	sf::RectangleShape world;
+	world.setSize(sf::Vector2f(512.0f, 512.0f));
+	world.setOrigin(world.getSize() / 2.0f);
+	world.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	world.setTexture(&dungeon_map);
 	
-	sf::RenderWindow window(sf::VideoMode(800, 600),"Hello SFML", sf::Style::Default);
+
+
+	// Player 1 & Player 2.
+	Player player_1(&player_1_texture, sf::Vector2u(3, 4), 2.0f,0.3f,200.0f,200.0f);
+	player_1.SetInput(1);
+	
+	Player player_2(&player_2_texture, sf::Vector2u(3, 4), 2.0f, 0.3f, 400.0f, 400.0f);
+	player_2.SetInput(2);
 	
 	// Spell bullet vector.
 	std::vector<SpellBullet>::const_iterator iterator;
 	std::vector<SpellBullet> bulletArray;
-
 
 	// Bullet.
 	SpellBullet bullet_1(2.0f);
@@ -24,12 +51,9 @@ int main()
 	sf::Font font;
 	font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 
-	sf::Text text;
-	text.setFont(font);
-	text.setPosition(200, 200);
-	text.setString("Somewhat collision test");
 	while (window.isOpen())
 	{
+		clock.restart().asSeconds();
 		window.setFramerateLimit(60);
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -62,9 +86,42 @@ int main()
 		player_2.Update(1.0f);
 		player_2.GetCollider().checkCollision(player_1.GetCollider(), 0.1f);
 		
-		// Draw
-		if (player_1.GetHealth() > 0) player_1.Draw(window);
-		if (player_2.GetHealth() > 0) player_2.Draw(window);
+		// Draw World and player.
+		window.draw(world);
+		game_hud.Draw(window);
+		
+		// Game loop.
+		if (player_1.GetScore() < 4 && player_2.GetScore() < 4) {
+			// Continue the game.
+			if (player_1.GetHealth() > 0) {
+				player_1.Draw(window);
+			}
+			else { game_hud.SetResultText(2); game_hud.DrawResultText(window); }
+			if (player_2.GetHealth() > 0) {
+				player_2.Draw(window);
+			}
+			else { game_hud.SetResultText(1); game_hud.DrawResultText(window); }
+		}
+		else {
+			// Ending game.
+			if (player_1.GetScore() == 4) {
+				game_hud.SetResultText(3);
+				game_hud.DrawResultText(window);
+			}
+			else if (player_2.GetScore() == 4) {
+				game_hud.SetResultText(4);
+				game_hud.DrawResultText(window);
+			}
+		}
+		// Reset condition.
+		if (sf::Keyboard::isKeyPressed(sf::Keyboard::R) && (player_1.GetHealth() <= 0 || player_2.GetHealth() <= 0)) {
+			if (player_1.GetHealth() > player_2.GetHealth()) {
+				player_1.SetScore(player_1.GetScore() + 1); game_hud.ChangeScore(1, player_1.GetScore());
+			} else  player_2.SetScore(player_2.GetScore() + 1); game_hud.ChangeScore(2, player_2.GetScore()); 
+			
+ 			player_1.SetHealth(100);
+			player_2.SetHealth(100);
+		}
 
 		// Set Bullet.
 		int counter = 0;
@@ -84,8 +141,6 @@ int main()
 			}
 			counter++;
 		}
-
-		window.draw(text);
 		window.display();
 	}
 
