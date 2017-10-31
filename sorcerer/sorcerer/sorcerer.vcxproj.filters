@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Sprite">
       <UniqueIdentifier>{57597a28-8106-47bb-bbf5-d4a3365ceddd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Sound">
+      <UniqueIdentifier>{7e6b9093-2d79-439c-8912-588c830719bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp">
@@ -64,5 +67,46 @@
     <Image Include="Sprite\player_2.png">
       <Filter>Source Files\Sprite</Filter>
     </Image>
+    <Image Include="Sprite\main_bg.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sound\fight_theme.ogg">
+      <Filter>Source Files\Sound</Filter>
+    </None>
+    <None Include="openal32.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-audio-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-audio-d-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-graphics-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-graphics-d-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-network-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-network-d-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-system-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-system-d-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-window-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="sfml-window-d-2.dll">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

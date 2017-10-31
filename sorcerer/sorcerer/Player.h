@@ -33,9 +33,23 @@ public:
 	float GetMana() { return mana; }
 	void SetMana(float mana) { this->mana = mana; }
 
+	unsigned int GetSkill() { return skill; }
+	void SetSkill(unsigned int skill) { this->skill = skill; }
+
 	unsigned int GetScore() { return score; }
 	void SetScore(unsigned int score) { this->score = score; }
 
+	bool GetFire() { return on_fire; }
+	void SetFire(bool on_fire) { this->on_fire = on_fire; }
+
+	bool GetFreeze() { return on_freeze; }
+	void SetFreeze(bool on_freeze) { this->on_freeze = on_freeze; }
+
+	bool GetSlow() { return on_slowed; }
+	void SetSlow(bool on_slowed) { this->on_slowed = on_slowed; }
+
+	float GetSpeed() { return speed; }
+	void SetSpeed(float speed) { this->speed = speed; }
 public:
 	sf::Color debugColor;
 
@@ -57,9 +71,23 @@ private:
 	
 	sf::RectangleShape currentHealthBar;
 	sf::RectangleShape maxHealthBar;
+	sf::RectangleShape currentManaBar;
+	sf::RectangleShape maxManaBar;
+
 	float health;
 	float mana;
 
-	unsigned int score;
-};
+	unsigned int skill;
+	bool on_fire;
+	bool on_freeze;
+	bool on_slowed;
 
+	unsigned int score;
+
+	sf::Clock clock;
+	sf::Time time;
+	sf::Time slowTime = sf::seconds(2);
+	sf::Time freezeTime = sf::seconds(4);
+	sf::Time burnTime = sf::seconds(3);
+	sf::Time burnDamageTime = sf::milliseconds(500);
+};
