@@ -88,6 +88,6 @@ private:
 	sf::Time time;
 	sf::Time slowTime = sf::seconds(2);
 	sf::Time freezeTime = sf::seconds(4);
-	sf::Time burnTime = sf::seconds(3);
+	sf::Time burnTime = sf::seconds(4);
 	sf::Time burnDamageTime = sf::milliseconds(500);
 };

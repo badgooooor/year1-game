@@ -132,7 +132,7 @@ void Player::Update(float deltaTime)
 	if (on_fire) {
 		body.setFillColor(sf::Color::Red);
 		time = clock.getElapsedTime();
-		SetHealth(GetHealth() - 0.05f);
+		SetHealth(GetHealth() - 0.1f);
 		if (time.asSeconds() >= burnTime.asSeconds()) {
 			body.setFillColor(sf::Color::White);
 			time = clock.restart();

@@ -1,5 +1,5 @@
 #include <SFML/Graphics.hpp>
-#include "SFML\Audio.hpp"
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include "Player.h"
 #include "SpellBullet.h"
@@ -22,7 +22,10 @@ int main() {
 
 // Main menu.
 void main_menu(sf::RenderWindow &window) {
-
+	sf::Music music;
+	music.openFromFile("Sound\\main_menu.ogg");
+	music.setLoop(true);
+	music.play();
 	sf::Font font;
 	font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 	
@@ -50,7 +53,7 @@ void main_menu(sf::RenderWindow &window) {
 
 	sf::Text start_text;
 	start_text.setFont(font);
-	start_text.setString("Press S to start.");
+	start_text.setString("S is for start");
 	start_text.setCharacterSize(24);
 	start_text.setFillColor(sf::Color::Green);
 	start_text.setPosition(320, 500);
@@ -84,8 +87,11 @@ void play(sf::RenderWindow &window) {
 	// HUD.
 	Hud game_hud;
 
-	// Sound.
 	sf::Music music;
+	music.openFromFile("Sound\\fight_theme.ogg");
+
+	music.setLoop(true);
+	music.play();
 	// Clock.
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -152,7 +158,7 @@ void play(sf::RenderWindow &window) {
 			bullet_1.SetPosition(bullet_position_1);
 			bulletArray.push_back(bullet_1);
 			
-			player_1.SetMana(player_1.GetMana() - 4.0f);
+			player_1.SetMana(player_1.GetMana() - 5.0f);
 		}
 
 		// Firing for player 2.

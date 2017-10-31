@@ -1,5 +1,4 @@
 ﻿  Main.cpp
-d:\work\lab prog. fun\year1-game\sorcerer\sorcerer\main.cpp(83): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
-Main.obj : error LNK2019: unresolved external symbol "public: __cdecl sf::Music::Music(void)" (??0Music@sf@@QEAA@XZ) referenced in function "void __cdecl play(class sf::RenderWindow &)" (?play@@YAXAEAVRenderWindow@sf@@@Z)
-Main.obj : error LNK2019: unresolved external symbol "public: virtual __cdecl sf::Music::~Music(void)" (??1Music@sf@@UEAA@XZ) referenced in function "void __cdecl play(class sf::RenderWindow &)" (?play@@YAXAEAVRenderWindow@sf@@@Z)
-D:\Work\Lab PROG. FUN\year1-game\sorcerer\x64\Debug\sorcerer.exe : fatal error LNK1120: 2 unresolved externals
+d:\work\lab prog. fun\year1-game\sorcerer\sorcerer\main.cpp(86): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  sorcerer.vcxproj -> D:\Work\Lab PROG. FUN\year1-game\sorcerer\x64\Debug\sorcerer.exe
+  sorcerer.vcxproj -> D:\Work\Lab PROG. FUN\year1-game\sorcerer\x64\Debug\sorcerer.pdb (Partial PDB)
