@@ -24,6 +24,8 @@ public:
 
 	sf::Color GetColor() { return body.getFillColor(); }
 private:
+	sf::Texture texture;
+	
 	sf::Vector2f movement;
 	sf::Vector2f lastestDirection;
 	float speed;

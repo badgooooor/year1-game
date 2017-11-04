@@ -4,6 +4,7 @@
 #include "Player.h"
 #include "SpellBullet.h"
 #include "hud.h"
+#include "item.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
@@ -11,7 +12,6 @@
 unsigned int state = 0;
 void play(sf::RenderWindow &window);
 void main_menu(sf::RenderWindow &window);
-void pause(sf::RenderWindow &window);
 
 int main() {
 	// Window.
@@ -26,9 +26,11 @@ void main_menu(sf::RenderWindow &window) {
 	music.openFromFile("Sound\\main_menu.ogg");
 	music.setLoop(true);
 	music.play();
-	sf::Font font;
-	font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 	
+	sf::Font font;
+	font.loadFromFile("C:/Windows/Fonts/ARCADECLASSIC.ttf");
+	sf::Font title_font;
+	title_font.loadFromFile("C:/Windows/Fonts/ARCADECLASSIC.tff");
 	// Background image.
 	sf::Texture background_image;
 	background_image.loadFromFile("Sprite/main_bg.png");
@@ -36,24 +38,25 @@ void main_menu(sf::RenderWindow &window) {
 	sf::RectangleShape background;
 	background.setSize(sf::Vector2f(WINDOW_HEIGHT, WINDOW_WIDTH));
 	background.setTexture(&background_image);
-	sf::Text heading_text;
-	heading_text.setFont(font);
-	heading_text.setString("THE IDIOT SORCERER");
-	heading_text.setCharacterSize(36);
-	heading_text.setFillColor(sf::Color::White);
-	heading_text.setStyle(sf::Text::Bold);
-	heading_text.setPosition(200,360);
+	
+	sf::RectangleShape title;
+	sf::Texture title_pic;
+	title_pic.loadFromFile("Sprite\\title.png");
+	title.setTexture(&title_pic);
+	title.setSize(sf::Vector2f(500.0f, 200.0f));
+	title.setOrigin(title.getSize() / 2.0f);
+	title.setPosition(sf::Vector2f(400.0f, 400.0f));
 
 	sf::Text sub_heading;
 	sub_heading.setFont(font);
-	sub_heading.setString("By Yuttakhan Baingen [60010842]");
+	sub_heading.setString("By Yuttakhan Baingen 60010842");
 	sub_heading.setCharacterSize(24);
 	sub_heading.setFillColor(sf::Color::White);
-	sub_heading.setPosition(220, 412);
+	sub_heading.setPosition(220, 450);
 
 	sf::Text start_text;
 	start_text.setFont(font);
-	start_text.setString("S is for start");
+	start_text.setString("S  is  for  start");
 	start_text.setCharacterSize(24);
 	start_text.setFillColor(sf::Color::Green);
 	start_text.setPosition(320, 500);
@@ -70,11 +73,14 @@ void main_menu(sf::RenderWindow &window) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::S)) {
 			state = 1;
 		}
-		if (state == 1) play(window);
+		if (state == 1) { 
+			music.stop();
+			play(window); 
+		}
 		window.clear();
 		window.draw(background);
+		window.draw(title);
 		window.draw(sub_heading);
-		window.draw(heading_text);
 		window.draw(start_text);
 
 		window.display();
@@ -84,14 +90,25 @@ void main_menu(sf::RenderWindow &window) {
 // Play screen.
 void play(sf::RenderWindow &window) {
 	srand(time(NULL));
+	
+	// Initialize the objects.
 	// HUD.
 	Hud game_hud;
-
+	
+	// Music
 	sf::Music music;
+	music.setVolume(30);
 	music.openFromFile("Sound\\fight_theme.ogg");
-
 	music.setLoop(true);
 	music.play();
+
+	// Sound Effect.
+	sf::Music bullet_shoot;
+	bullet_shoot.openFromFile("Sound\\magic_bullet.ogg");
+	sf::Music fire_sound;
+	fire_sound.openFromFile("Sound\\skill_fire.ogg");
+	sf::Music slow_sound;
+	slow_sound.openFromFile("Sound\\skill_slow.ogg");
 	// Clock.
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -115,7 +132,7 @@ void play(sf::RenderWindow &window) {
 	Player player_1(&player_1_texture, sf::Vector2u(3, 4), 2.0f, 0.3f, 200.0f, 200.0f);
 	player_1.SetInput(1);
 
-	Player player_2(&player_2_texture, sf::Vector2u(3, 4), 2.0f, 0.3f, 400.0f, 400.0f);
+	Player player_2(&player_2_texture, sf::Vector2u(3, 4), 2.0f, 0.3f, 600.0f, 600.0f);
 	player_2.SetInput(2);
 
 	// Spell bullet vector.
@@ -124,13 +141,18 @@ void play(sf::RenderWindow &window) {
 
 	// Bullet.
 	SpellBullet bullet_1(2.0f);
-	bullet_1.SetPlayerSkill(player_1.GetSkill());
 	SpellBullet bullet_2(2.0f);
+	bullet_1.SetPlayerSkill(player_1.GetSkill());
 	bullet_2.SetPlayerSkill(player_2.GetSkill());
 
+	// Item.
+	Item item(400.0f, 400.0f);
+
+	// Font.
 	sf::Font font;
 	font.loadFromFile("C:/Windows/Fonts/Arial.ttf");
 
+	// Game Loop.
 	clock.restart().asSeconds();
 	window.setFramerateLimit(60);
 	sf::Event event;
@@ -144,15 +166,22 @@ void play(sf::RenderWindow &window) {
 		}
 		window.clear();
 
-
 		// Firing for player 1.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
+			bullet_shoot.play();
 			bullet_1.direction = player_1.GetMovement();
 			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 6.0f), player_1.GetPosition().y + (bullet_1.direction.y * 6.0f));
 			bullet_1.SetPosition(bullet_position_1);			
 			bulletArray.push_back(bullet_1);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && player_1.GetMana() > 0) {
+			if (player_1.GetSkill() == 1) {
+				fire_sound.play();
+			} else if (player_1.GetSkill() == 2) {
+
+			} else if (player_1.GetSkill() == 3) {
+				slow_sound.play();
+			}
 			bullet_1.direction = player_1.GetMovement();
 			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 6.0f), player_1.GetPosition().y + (bullet_1.direction.y * 6.0f));
 			bullet_1.SetPosition(bullet_position_1);
@@ -163,18 +192,28 @@ void play(sf::RenderWindow &window) {
 
 		// Firing for player 2.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
+			bullet_shoot.play();
 			bullet_2.direction = player_2.GetMovement();
 			sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 6.0f), player_2.GetPosition().y + (bullet_2.direction.y * 6.0f));
 			bullet_2.SetPosition(bullet_position_2);			
 			bulletArray.push_back(bullet_2);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && player_2.GetMana() > 0) {
+			if (player_1.GetSkill() == 1) {
+				fire_sound.play();
+			}
+			else if (player_2.GetSkill() == 2) {
+
+			}
+			else if (player_2.GetSkill() == 3) {
+				slow_sound.play();
+			}
 			bullet_2.direction = player_2.GetMovement();
 			sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 6.0f), player_2.GetPosition().y + (bullet_2.direction.y * 6.0f));
 			bullet_2.SetPosition(bullet_position_2);
 			bulletArray.push_back(bullet_2);
 			
-			player_2.SetMana(player_2.GetMana() - 4.0f);
+			player_2.SetMana(player_2.GetMana() - 5.0f);
 		}
 		// Collision and update.
 		player_1.Update(1.0f);
@@ -187,6 +226,9 @@ void play(sf::RenderWindow &window) {
 		window.draw(world);
 		game_hud.Draw(window);
 
+		item.Update();
+		item.Draw(window);
+
 		// Game loop.
 		if (player_1.GetScore() < 4 && player_2.GetScore() < 4) {
 			// Continue the game.
@@ -196,7 +238,7 @@ void play(sf::RenderWindow &window) {
 			if (player_2.GetHealth() > 0) {
 				player_2.Draw(window);
 			} else { game_hud.SetResultText(1); game_hud.DrawResultText(window); }
-			player_1.SetSkill((rand() % 10) + 1); player_2.SetSkill((rand() % 10) + 1);
+			player_1.SetSkill((rand() % 3) + 1); player_2.SetSkill((rand() % 3) + 1);
 		} else {
 			// Ending game.
 			if (player_1.GetScore() == 4) {
@@ -216,6 +258,32 @@ void play(sf::RenderWindow &window) {
 
 			player_1.SetHealth(100);
 			player_2.SetHealth(100);
+		}
+
+		// Item Grabbing.
+		if (item.GetCollider().checkCollision(player_1.GetCollider(), 0.0f)) {
+			if (item.GetItemId() == 1) {
+				player_1.SetHealHealth(true);
+			} else if (item.GetItemId() == 2) {
+				player_1.SetHealMana(true);
+			} else if (item.GetItemId() == 3) {
+				player_1.SetScroll(true);
+				bullet_1.SetPlayerSkill(player_1.GetSkill());
+				std::cout << bullet_1.GetPlayerSkill() << std::endl;
+			}
+			item.randomItem();
+		}
+		if (item.GetCollider().checkCollision(player_2.GetCollider(), 0.0f)) {
+			if (item.GetItemId() == 1) {
+				player_2.SetHealHealth(true);
+			} else if (item.GetItemId() == 2) {
+				player_2.SetHealMana(true);
+			} else if (item.GetItemId() == 3) {
+				player_2.SetScroll(true);
+				bullet_2.SetPlayerSkill(player_2.GetSkill());
+				std::cout << bullet_2.GetPlayerSkill() << std::endl;
+			}
+			item.randomItem();
 		}
 
 		// Set Bullet + Damaging.
@@ -254,8 +322,4 @@ void play(sf::RenderWindow &window) {
 		}
 		window.display();
 	}
-}
-
-void pause(sf::RenderWindow &window) {
-
 }

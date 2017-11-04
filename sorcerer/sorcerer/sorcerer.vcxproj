@@ -85,22 +85,31 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="hud.cpp" />
+    <ClCompile Include="item.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpellBullet.cpp" />
+    <ClCompile Include="Summon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="hud.h" />
+    <ClInclude Include="item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpellBullet.h" />
+    <ClInclude Include="Summon.h" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Sprite\dungeon-map.png" />
+    <Image Include="Sprite\item_health_potion.png" />
+    <Image Include="Sprite\item_mana_potion.png" />
+    <Image Include="Sprite\item_scroll.png" />
+    <Image Include="Sprite\magic_bullet.png" />
     <Image Include="Sprite\main_bg.png" />
     <Image Include="Sprite\player_1.png" />
     <Image Include="Sprite\player_2.png" />
+    <Image Include="Sprite\title.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll" />
@@ -115,7 +124,10 @@
     <None Include="sfml-window-2.dll" />
     <None Include="sfml-window-d-2.dll" />
     <None Include="Sound\fight_theme.ogg" />
+    <None Include="Sound\magic_bullet.ogg" />
     <None Include="Sound\main_menu.ogg" />
+    <None Include="Sound\skill_fire.ogg" />
+    <None Include="Sound\skill_slow.ogg" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

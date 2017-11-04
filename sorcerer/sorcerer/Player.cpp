@@ -13,7 +13,7 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 	health = 100;
 	mana = 100;
 
-	skill = (rand() % 15) + 1;
+	skill = (rand() % 3) + 1;
 
 	std::cout << skill << std::endl;
 	body.setSize(sf::Vector2f(30.0f, 45.0f));
@@ -65,6 +65,31 @@ void Player::Update(float deltaTime)
 			on_freeze = false;
 		}
 	} else {
+		// Heal health.
+		if (item_heal && health < 100) {
+			health += 1.0f;
+			time = clock.getElapsedTime();
+			if (time.asSeconds() >= regenTime.asSeconds()) {
+				time = clock.restart();
+				item_heal = false;
+			}
+		}
+		// Mana Regenerate.
+		if (item_mana && mana < 100) {
+			mana += 1.0f;
+			time = clock.getElapsedTime();
+			if (time.asSeconds() >= regenTime.asSeconds()) {
+				time = clock.restart();
+				item_mana = false;
+			}
+		}
+		// Skill random.
+		if (item_scroll) {
+			skill = (rand() % 3) + 1;
+			std::cout << skill << std::endl;
+			item_scroll = false;
+		}
+
 		// Slow effect.
 		if (on_slowed) {
 			body.setFillColor(sf::Color::Yellow);

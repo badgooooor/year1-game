@@ -48,6 +48,15 @@ public:
 	bool GetSlow() { return on_slowed; }
 	void SetSlow(bool on_slowed) { this->on_slowed = on_slowed; }
 
+	bool GetHealHealth() { return item_heal; }
+	void SetHealHealth(bool item_heal) { this->item_heal = item_heal; }
+
+	bool GetHealMana() { return item_mana; }
+	void SetHealMana(bool item_mana) { this->item_mana = item_mana; }
+
+	bool GetScroll() { return item_scroll; }
+	void SetScroll(bool item_scroll) { this->item_scroll = item_scroll; }
+	
 	float GetSpeed() { return speed; }
 	void SetSpeed(float speed) { this->speed = speed; }
 public:
@@ -82,6 +91,10 @@ private:
 	bool on_freeze;
 	bool on_slowed;
 
+	bool item_heal;
+	bool item_mana;
+	bool item_scroll;
+
 	unsigned int score;
 
 	sf::Clock clock;
@@ -90,4 +103,5 @@ private:
 	sf::Time freezeTime = sf::seconds(4);
 	sf::Time burnTime = sf::seconds(4);
 	sf::Time burnDamageTime = sf::milliseconds(500);
+	sf::Time regenTime = sf::seconds(5);
 };

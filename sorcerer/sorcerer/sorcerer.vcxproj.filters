@@ -39,6 +39,12 @@
     <ClCompile Include="hud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Summon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -56,6 +62,12 @@
     <ClInclude Include="hud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Summon.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Sprite\player_1.png">
@@ -68,6 +80,21 @@
       <Filter>Source Files\Sprite</Filter>
     </Image>
     <Image Include="Sprite\main_bg.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\title.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\item_health_potion.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\item_mana_potion.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\item_scroll.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\magic_bullet.png">
       <Filter>Source Files\Sprite</Filter>
     </Image>
   </ItemGroup>
@@ -109,6 +136,15 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="Sound\main_menu.ogg">
+      <Filter>Source Files\Sound</Filter>
+    </None>
+    <None Include="Sound\magic_bullet.ogg">
+      <Filter>Source Files\Sound</Filter>
+    </None>
+    <None Include="Sound\skill_fire.ogg">
+      <Filter>Source Files\Sound</Filter>
+    </None>
+    <None Include="Sound\skill_slow.ogg">
       <Filter>Source Files\Sound</Filter>
     </None>
   </ItemGroup>

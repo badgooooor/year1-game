@@ -1,4 +1,9 @@
-﻿  Main.cpp
-d:\work\lab prog. fun\year1-game\sorcerer\sorcerer\main.cpp(86): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+﻿  SpellBullet.cpp
+  Generating Code...
+  Compiling...
+  Player.cpp
+  Main.cpp
+d:\work\lab prog. fun\year1-game\sorcerer\sorcerer\main.cpp(92): warning C4244: 'argument': conversion from 'time_t' to 'unsigned int', possible loss of data
+  Generating Code...
   sorcerer.vcxproj -> D:\Work\Lab PROG. FUN\year1-game\sorcerer\x64\Debug\sorcerer.exe
   sorcerer.vcxproj -> D:\Work\Lab PROG. FUN\year1-game\sorcerer\x64\Debug\sorcerer.pdb (Partial PDB)
