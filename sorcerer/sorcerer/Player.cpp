@@ -13,13 +13,16 @@ Player::Player(sf::Texture* texture, sf::Vector2u imageCount, float switchTime, 
 	health = 100;
 	mana = 100;
 
-	skill = (rand() % 3) + 1;
+	skill = 4;
 
 	std::cout << skill << std::endl;
 	body.setSize(sf::Vector2f(30.0f, 45.0f));
 	body.setOrigin(body.getSize() / 2.0f);
 	body.setPosition(spawnX, spawnY);
 	body.setTexture(texture);
+
+	status_freezed.openFromFile("Sound\\status_freezed.wav");
+	status_burned.openFromFile("Sound\\status_burned.wav");
 
 	Animation animation(texture, imageCount, switchTime);
 	textureSize = texture->getSize();
@@ -61,6 +64,7 @@ void Player::Update(float deltaTime)
 		body.setFillColor(sf::Color::Blue);
 		time = clock.getElapsedTime();
 		if (time.asSeconds() >= freezeTime.asSeconds()) {
+			status_freezed.play();
 			time = clock.restart();
 			on_freeze = false;
 		}
@@ -85,11 +89,15 @@ void Player::Update(float deltaTime)
 		}
 		// Skill random.
 		if (item_scroll) {
-			skill = (rand() % 3) + 1;
+			skill = (rand() % 4) + 1;
 			std::cout << skill << std::endl;
 			item_scroll = false;
 		}
-
+		// Mine.
+		if (item_mine) {
+			health -= 50;
+			item_mine = false;
+		}
 		// Slow effect.
 		if (on_slowed) {
 			body.setFillColor(sf::Color::Yellow);
@@ -105,7 +113,7 @@ void Player::Update(float deltaTime)
 		case 1:
 			// WASD Movement.
 			if (sf::Keyboard::isKeyPressed(sf::Keyboard::A)) {
-				movement.x -= speed * deltaTime; row = 1;
+				movement.x -= speed * deltaTime; row = 1; 
 			}
 			else if (sf::Keyboard::isKeyPressed(sf::Keyboard::D)) {
 				movement.x += speed * deltaTime; row = 2;
@@ -159,6 +167,7 @@ void Player::Update(float deltaTime)
 		time = clock.getElapsedTime();
 		SetHealth(GetHealth() - 0.1f);
 		if (time.asSeconds() >= burnTime.asSeconds()) {
+			status_burned.play();
 			body.setFillColor(sf::Color::White);
 			time = clock.restart();
 			on_fire = false;

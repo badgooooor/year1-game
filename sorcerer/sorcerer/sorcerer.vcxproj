@@ -89,7 +89,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SpellBullet.cpp" />
-    <ClCompile Include="Summon.cpp" />
+    <ClCompile Include="WorldObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -98,9 +98,10 @@
     <ClInclude Include="item.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SpellBullet.h" />
-    <ClInclude Include="Summon.h" />
+    <ClInclude Include="WorldObject.h" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Sprite\arcane_mine.png" />
     <Image Include="Sprite\dungeon-map.png" />
     <Image Include="Sprite\item_health_potion.png" />
     <Image Include="Sprite\item_mana_potion.png" />
@@ -110,6 +111,10 @@
     <Image Include="Sprite\player_1.png" />
     <Image Include="Sprite\player_2.png" />
     <Image Include="Sprite\title.png" />
+    <Image Include="Sprite\world_box_1.png" />
+    <Image Include="Sprite\world_box_2.png" />
+    <Image Include="Sprite\world_wood_1.png" />
+    <Image Include="Sprite\world_wood_2.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="openal32.dll" />
@@ -127,7 +132,13 @@
     <None Include="Sound\magic_bullet.ogg" />
     <None Include="Sound\main_menu.ogg" />
     <None Include="Sound\skill_fire.ogg" />
+    <None Include="Sound\skill_ice.ogg" />
     <None Include="Sound\skill_slow.ogg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\item_grab.wav" />
+    <Media Include="Sound\status_burned.wav" />
+    <Media Include="Sound\status_freezed.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

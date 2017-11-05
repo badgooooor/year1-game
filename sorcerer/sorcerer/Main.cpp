@@ -5,6 +5,7 @@
 #include "SpellBullet.h"
 #include "hud.h"
 #include "item.h"
+#include "WorldObject.h"
 
 #define WINDOW_WIDTH 800
 #define WINDOW_HEIGHT 800
@@ -101,14 +102,19 @@ void play(sf::RenderWindow &window) {
 	music.openFromFile("Sound\\fight_theme.ogg");
 	music.setLoop(true);
 	music.play();
-
+	
 	// Sound Effect.
-	sf::Music bullet_shoot;
-	bullet_shoot.openFromFile("Sound\\magic_bullet.ogg");
+	sf::Music item_grab;
+	item_grab.openFromFile("Sound\\item_grab.wav");
 	sf::Music fire_sound;
-	fire_sound.openFromFile("Sound\\skill_fire.ogg");
 	sf::Music slow_sound;
+	sf::Music ice_sound;
+	sf::Music bullet_shoot;
+	fire_sound.openFromFile("Sound\\skill_fire.ogg");
 	slow_sound.openFromFile("Sound\\skill_slow.ogg");
+	ice_sound.openFromFile("Sound\\skill_ice.ogg");
+	bullet_shoot.openFromFile("Sound\\magic_bullet.ogg");
+	
 	// Clock.
 	float deltaTime = 0.0f;
 	sf::Clock clock;
@@ -128,6 +134,10 @@ void play(sf::RenderWindow &window) {
 	world.setPosition(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 	world.setTexture(&dungeon_map);
 
+	WorldObject object_1;
+	WorldObject object_2;
+	WorldObject object_3;
+
 	// Player 1 & Player 2.
 	Player player_1(&player_1_texture, sf::Vector2u(3, 4), 2.0f, 0.3f, 200.0f, 200.0f);
 	player_1.SetInput(1);
@@ -146,7 +156,7 @@ void play(sf::RenderWindow &window) {
 	bullet_2.SetPlayerSkill(player_2.GetSkill());
 
 	// Item.
-	Item item(400.0f, 400.0f);
+	Item item(400.0f,400.0f);
 
 	// Font.
 	sf::Font font;
@@ -170,50 +180,57 @@ void play(sf::RenderWindow &window) {
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space)) {
 			bullet_shoot.play();
 			bullet_1.direction = player_1.GetMovement();
-			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 6.0f), player_1.GetPosition().y + (bullet_1.direction.y * 6.0f));
+			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 10.0f), player_1.GetPosition().y + (bullet_1.direction.y * 10.0f));
 			bullet_1.SetPosition(bullet_position_1);			
 			bulletArray.push_back(bullet_1);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::E) && player_1.GetMana() > 0) {
-			if (player_1.GetSkill() == 1) {
-				fire_sound.play();
-			} else if (player_1.GetSkill() == 2) {
-
-			} else if (player_1.GetSkill() == 3) {
-				slow_sound.play();
+			switch (player_1.GetSkill()) {
+			case 1: fire_sound.play(); break;
+			case 2: ice_sound.play(); break;
+			case 3: slow_sound.play(); break;
 			}
 			bullet_1.direction = player_1.GetMovement();
-			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 6.0f), player_1.GetPosition().y + (bullet_1.direction.y * 6.0f));
+			sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 10.0f), player_1.GetPosition().y + (bullet_1.direction.y * 10.0f));
 			bullet_1.SetPosition(bullet_position_1);
 			bulletArray.push_back(bullet_1);
-			
-			player_1.SetMana(player_1.GetMana() - 5.0f);
+			if (player_1.GetSkill() != 4) {
+				player_1.SetMana(player_1.GetMana() - 10.0f);
+				sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 10.0f), player_1.GetPosition().y + (bullet_1.direction.y * 10.0f));
+				bullet_1.SetPosition(bullet_position_1);
+			} else {
+				player_1.SetMana(player_1.GetMana() - 30.0f);
+				sf::Vector2f bullet_position_1(player_1.GetPosition().x + (bullet_1.direction.x * 20.0f), player_1.GetPosition().y + (bullet_1.direction.y * 20.0f));
+				bullet_1.SetPosition(bullet_position_1);
+			}
 		}
 
 		// Firing for player 2.
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
 			bullet_shoot.play();
 			bullet_2.direction = player_2.GetMovement();
-			sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 6.0f), player_2.GetPosition().y + (bullet_2.direction.y * 6.0f));
+			sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 10.0f), player_2.GetPosition().y + (bullet_2.direction.y * 10.0f));
 			bullet_2.SetPosition(bullet_position_2);			
 			bulletArray.push_back(bullet_2);
 		}
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1) && player_2.GetMana() > 0) {
-			if (player_1.GetSkill() == 1) {
-				fire_sound.play();
-			}
-			else if (player_2.GetSkill() == 2) {
-
-			}
-			else if (player_2.GetSkill() == 3) {
-				slow_sound.play();
+			switch (player_2.GetSkill()) {
+			case 1: fire_sound.play(); break;
+			case 2: ice_sound.play(); break;
+			case 3: slow_sound.play(); break;
 			}
 			bullet_2.direction = player_2.GetMovement();
-			sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 6.0f), player_2.GetPosition().y + (bullet_2.direction.y * 6.0f));
-			bullet_2.SetPosition(bullet_position_2);
 			bulletArray.push_back(bullet_2);
-			
-			player_2.SetMana(player_2.GetMana() - 5.0f);
+			if (player_2.GetSkill() != 4) {
+				player_2.SetMana(player_2.GetMana() - 10.0f);
+				sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 10.0f), player_2.GetPosition().y + (bullet_2.direction.y * 10.0f));
+				bullet_2.SetPosition(bullet_position_2);
+			}
+			else {
+				player_2.SetMana(player_2.GetMana() - 30.0f);
+				sf::Vector2f bullet_position_2(player_2.GetPosition().x + (bullet_2.direction.x * 20.0f), player_2.GetPosition().y + (bullet_2.direction.y * 20.0f));
+				bullet_2.SetPosition(bullet_position_2);
+			}
 		}
 		// Collision and update.
 		player_1.Update(1.0f);
@@ -224,8 +241,14 @@ void play(sf::RenderWindow &window) {
 
 		// Draw World and player.
 		window.draw(world);
+		object_1.Draw(window);
+		object_2.Draw(window);
+		object_3.Draw(window);
 		game_hud.Draw(window);
 
+		object_1.Update();
+		object_2.Update();
+		object_3.Update();
 		item.Update();
 		item.Draw(window);
 
@@ -260,28 +283,45 @@ void play(sf::RenderWindow &window) {
 			player_2.SetHealth(100);
 		}
 
+		// Collision with item & player.
+		player_1.GetCollider().checkCollision(object_1.GetCollider(), 0.0f);
+		player_1.GetCollider().checkCollision(object_2.GetCollider(), 0.0f);
+		player_1.GetCollider().checkCollision(object_3.GetCollider(), 0.0f);
+		player_2.GetCollider().checkCollision(object_1.GetCollider(), 0.0f);
+		player_2.GetCollider().checkCollision(object_2.GetCollider(), 0.0f);
+		player_2.GetCollider().checkCollision(object_3.GetCollider(), 0.0f);
 		// Item Grabbing.
 		if (item.GetCollider().checkCollision(player_1.GetCollider(), 0.0f)) {
 			if (item.GetItemId() == 1) {
+				item_grab.play();
 				player_1.SetHealHealth(true);
 			} else if (item.GetItemId() == 2) {
+				item_grab.play();
 				player_1.SetHealMana(true);
 			} else if (item.GetItemId() == 3) {
+				item_grab.play();
 				player_1.SetScroll(true);
 				bullet_1.SetPlayerSkill(player_1.GetSkill());
 				std::cout << bullet_1.GetPlayerSkill() << std::endl;
+			} else if (item.GetItemId() == 4) {
+				player_1.SetMine(true);
 			}
 			item.randomItem();
 		}
 		if (item.GetCollider().checkCollision(player_2.GetCollider(), 0.0f)) {
 			if (item.GetItemId() == 1) {
+				item_grab.play();
 				player_2.SetHealHealth(true);
 			} else if (item.GetItemId() == 2) {
+				item_grab.play();
 				player_2.SetHealMana(true);
 			} else if (item.GetItemId() == 3) {
+				item_grab.play();
 				player_2.SetScroll(true);
 				bullet_2.SetPlayerSkill(player_2.GetSkill());
 				std::cout << bullet_2.GetPlayerSkill() << std::endl;
+			} else if (item.GetItemId() == 4) {
+				player_2.SetMine(true);
 			}
 			item.randomItem();
 		}
@@ -292,9 +332,9 @@ void play(sf::RenderWindow &window) {
 			bulletArray[counter].Update(0.25f);
 			if (bulletArray[counter].GetCollider().checkCollision(player_2.GetCollider(), 0.1f)) {
 				if (bulletArray[counter].GetColor() == sf::Color::Red) {
-					player_2.SetFire(true);
+					player_2.SetFire(true); 
 				} else if (bulletArray[counter].GetColor() == sf::Color::Blue) {
-					player_2.SetFreeze(true);
+					player_2.SetFreeze(true); 
 				} else if (bulletArray[counter].GetColor() == sf::Color::Yellow) {
 					player_2.SetSlow(true);
 				} else if (bulletArray[counter].GetColor() == sf::Color::Green) {
@@ -304,11 +344,11 @@ void play(sf::RenderWindow &window) {
 				bulletArray[counter].SetShot(false);
 			} else if (bulletArray[counter].GetCollider().checkCollision(player_1.GetCollider(), 0.1f)) {
 				if (bulletArray[counter].GetColor() == sf::Color::Red) {
-					player_1.SetFire(true);
+					player_1.SetFire(true); 
 				} else if (bulletArray[counter].GetColor() == sf::Color::Blue) {
-					player_1.SetFreeze(true);
+					player_1.SetFreeze(true); 
 				} else if (bulletArray[counter].GetColor() == sf::Color::Yellow) {
-					player_1.SetSlow(true);
+					player_1.SetSlow(true); 
 				} else if (bulletArray[counter].GetColor() == sf::Color::Green) {
 					player_1.SetHealth(player_1.GetHealth() - 1);
 				}

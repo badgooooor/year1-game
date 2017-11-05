@@ -39,10 +39,10 @@
     <ClCompile Include="hud.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Summon.cpp">
+    <ClCompile Include="item.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="item.cpp">
+    <ClCompile Include="WorldObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -62,10 +62,10 @@
     <ClInclude Include="hud.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Summon.h">
+    <ClInclude Include="item.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="item.h">
+    <ClInclude Include="WorldObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -95,6 +95,21 @@
       <Filter>Source Files\Sprite</Filter>
     </Image>
     <Image Include="Sprite\magic_bullet.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\arcane_mine.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\world_box_1.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\world_box_2.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\world_wood_1.png">
+      <Filter>Source Files\Sprite</Filter>
+    </Image>
+    <Image Include="Sprite\world_wood_2.png">
       <Filter>Source Files\Sprite</Filter>
     </Image>
   </ItemGroup>
@@ -147,5 +162,19 @@
     <None Include="Sound\skill_slow.ogg">
       <Filter>Source Files\Sound</Filter>
     </None>
+    <None Include="Sound\skill_ice.ogg">
+      <Filter>Source Files\Sound</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Sound\status_freezed.wav">
+      <Filter>Source Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\item_grab.wav">
+      <Filter>Source Files\Sound</Filter>
+    </Media>
+    <Media Include="Sound\status_burned.wav">
+      <Filter>Source Files\Sound</Filter>
+    </Media>
   </ItemGroup>
 </Project>

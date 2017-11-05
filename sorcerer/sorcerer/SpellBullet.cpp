@@ -23,15 +23,24 @@ void SpellBullet::Update(float deltaTime) {
 			body.setFillColor(sf::Color::Blue);
 		} else if (playerSkill == 3) {
 			body.setFillColor(sf::Color::Yellow);
+		} else if (playerSkill == 4) {
+			body.setFillColor(sf::Color::Cyan);
+			isMine = true;
 		}
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) || sf::Keyboard::isKeyPressed(sf::Keyboard::RShift)) {
 		body.setFillColor(sf::Color::Green);
 	}
 	time = clock.getElapsedTime();
+	if (isMine && speed > 0) {
+		speed -= 0.5f;
+	}
+	else {
+		speed = speed;
+	}
 	if (direction.x == 0 && direction.y == 0) {
-		movement.x = lastestDirection.x * speed * deltaTime;
-		movement.y = lastestDirection.y * speed * deltaTime;
+		movement.x += 900;
+		movement.y += 900;
 	} else {
 		lastestDirection.x = direction.x;
 		lastestDirection.y = direction.y;
@@ -43,7 +52,7 @@ void SpellBullet::Update(float deltaTime) {
 }
 
 void SpellBullet::Draw(sf::RenderWindow& window) {
-	if(GetShot()) window.draw(body);
+	window.draw(body);
 }
 
 void SpellBullet::SetPosition(sf::Vector2f position) {

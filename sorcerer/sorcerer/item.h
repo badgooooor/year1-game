@@ -22,6 +22,7 @@ private:
 	sf::Texture health_potion;
 	sf::Texture mana_potion;
 	sf::Texture skill_scroll;
+	sf::Texture arcane_ball;
 	sf::RectangleShape body;
 
 	// 1-Health potion 2-Mana potion 3-Scroll of randomness.

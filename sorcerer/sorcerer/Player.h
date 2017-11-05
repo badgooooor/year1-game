@@ -1,5 +1,6 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include "Collision.h"
 #include "SpellBullet.h"
 #include "Animation.h"
@@ -24,7 +25,7 @@ public:
 	sf::Vector2f GetMovement() { return movement; }
 	sf::Vector2f GetSize() { return sf::Vector2f(body.getSize().x, body.getSize().y); }
 	sf::Vector2f GetHalfSize() { return sf::Vector2f(body.getSize().x / 2, body.getSize().y / 2); }
-	
+	unsigned int GetRow() { return row; }
 	Collider GetCollider() { return Collider(body); }
 
 	float GetHealth() { return health; }
@@ -56,7 +57,9 @@ public:
 
 	bool GetScroll() { return item_scroll; }
 	void SetScroll(bool item_scroll) { this->item_scroll = item_scroll; }
-	
+
+	bool GetMine() { return item_mine; }
+	void SetMine(bool item_mine) { this->item_mine = item_mine; }
 	float GetSpeed() { return speed; }
 	void SetSpeed(float speed) { this->speed = speed; }
 public:
@@ -94,6 +97,7 @@ private:
 	bool item_heal;
 	bool item_mana;
 	bool item_scroll;
+	bool item_mine;
 
 	unsigned int score;
 
@@ -104,4 +108,7 @@ private:
 	sf::Time burnTime = sf::seconds(4);
 	sf::Time burnDamageTime = sf::milliseconds(500);
 	sf::Time regenTime = sf::seconds(5);
+
+	sf::Music status_burned;
+	sf::Music status_freezed;
 };
